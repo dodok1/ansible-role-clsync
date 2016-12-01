@@ -1,0 +1,8 @@
+---
+# configure rsyncd on backup
+  - include: 'rsync.yaml'
+    when: sync_master == false
+
+# configure clsync on primary
+  - include: 'clsync.yaml'
+    when: sync_master == true

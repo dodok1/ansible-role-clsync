@@ -1,0 +1,22 @@
+[default]
+rules-file = /etc/clsync/rules/default
+mode = rsyncshell
+background = 1
+syslog = 1
+debug = 1
+full-initialsync = 1
+retries = 3
+{% for service in clsync_service %}
+{% if service.in_daemon == true %}
+config-block-inherits = {{ service.name }}
+{% endif %}
+{% endfor %}
+
+{% for service in clsync_service %}
+[{{ service.name }}]
+watch-dir            = {{ service.directory }}
+lists-dir            = /dev/shm/clsync_{{ service.name }}
+sync-handler = /etc/clsync/synchandler/{{ service.name }}.sh
+pid-file    = /var/run/clsync-{{ service.name }}.pid
+
+{% endfor %}

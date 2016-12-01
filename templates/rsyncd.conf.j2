@@ -1,0 +1,21 @@
+strict modes = yes
+ignore errors = no
+ignore nonreadable = yes
+transfer logging = no
+timeout = 600
+dont compress = *.gz *.tgz *.zip *.z *.rpm *.deb *.iso *.bz2 *.tbz
+use chroot = yes
+list = yes
+lock file = /var/lock/rsyncd
+read only = no
+
+{% for service in clsync_service %}
+[{{ service.name }}]
+   comment = {{ service.name }}-data
+   path = {{ service.directory}}
+   uid = {{ service.user }}
+   gid = {{ service.user }}
+   hosts allow = {{ service.source}}
+
+{% endfor %}
+

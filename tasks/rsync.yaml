@@ -1,0 +1,16 @@
+---
+- name: install rsync package
+  yum:
+    name: rsync
+    state: latest
+
+- name: create rsyncd.conf
+  template: 
+    src: rsyncd.conf.j2
+    dest: /etc/rsyncd.conf
+
+- name: start rsync daemon
+  service: 
+    name: rsyncd
+    enabled: yes
+    state: started

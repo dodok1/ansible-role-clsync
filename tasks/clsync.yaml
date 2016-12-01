@@ -1,0 +1,37 @@
+---
+- name: copy package to server
+  copy: 
+    src: files/{{ clsync_package }}
+    dest: /tmp/{{ clsync_package }}
+    owner: root
+    mode: 0640  
+
+- name: install clsync package
+  yum: 
+    name: /tmp/{{ clsync_package }}
+    state: present
+
+- name: create clsync configuration from template
+  template: 
+    src: clsync.conf.j2
+    dest: /etc/clsync/clsync.conf
+    mode: 0644
+
+- name: ensure synchandler directory exists
+  file: 
+    path: /etc/clsync/synchandler
+    state: directory
+    mode: 0755
+
+- name: create synchandlers for services
+  template:
+    src: synchandler.sh.j2 
+    dest: /etc/clsync/synchandler/{{ item.name }}.sh
+    mode: 0755
+  with_items:  '{{ clsync_service }}'
+
+- name: start clsync service
+  service:
+    name: clsync
+    state: restarted
+    enabled: true
