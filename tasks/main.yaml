@@ -6,3 +6,5 @@
 # configure clsync on primary
   - include: 'clsync.yaml'
     when: sync_master == true
+
+

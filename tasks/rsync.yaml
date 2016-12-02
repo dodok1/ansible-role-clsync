@@ -1,4 +1,8 @@
 ---
+- name: disable selinux
+  selinux:
+    state: disabled
+
 - name: install rsync package
   yum:
     name: rsync
@@ -8,6 +12,15 @@
   template: 
     src: rsyncd.conf.j2
     dest: /etc/rsyncd.conf
+
+- name: enable firewall ports
+  firewalld: port=873/tcp permanent=true state=enabled
+
+- name: restart firewalld service
+  service: 
+    name: firewalld
+    enabled: yes
+    state: restarted
 
 - name: start rsync daemon
   service: 

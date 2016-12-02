@@ -6,10 +6,18 @@
     owner: root
     mode: 0640  
 
+- name: remove clsync package
+  yum: 
+    name: clsync
+    state: absent
+
 - name: install clsync package
   yum: 
     name: /tmp/{{ clsync_package }}
     state: present
+
+- name: reload daemon on systemd when package upgraded
+  shell: systemctl daemon-reload
 
 - name: create clsync configuration from template
   template: 
