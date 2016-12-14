@@ -15,12 +15,14 @@
 
 - name: enable firewall ports
   firewalld: port=873/tcp permanent=true state=enabled
+  when: false
 
 - name: restart firewalld service
   service: 
     name: firewalld
     enabled: yes
     state: restarted
+  when: false
 
 - name: start rsync daemon
   service: 
