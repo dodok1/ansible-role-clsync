@@ -15,7 +15,7 @@ read only = no
    path = {{ service.directory}}
    uid = {{ service.user }}
    gid = {{ service.user }}
-{% if sync_master == true %}
+{% if clsync_master == true %}
    hosts allow = {{ service.backup_ip }}
 {% else %}
    hosts allow = {{ service.primary_ip }}
