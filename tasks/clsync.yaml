@@ -1,7 +1,7 @@
 ---
 - name: copy package to server
   copy: 
-    src: files/{{ clsync_package }}
+    src: '{{ clsync_package }}'
     dest: /tmp/{{ clsync_package }}
     owner: root
     mode: 0640  
