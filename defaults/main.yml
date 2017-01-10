@@ -1,6 +1,6 @@
 ---
 #clsync_service: 
-# - { name: jira, directory: /srv/atlassian/jira/data, user: jira, primary_ip: 192.168.128.98,  backup_ip: 192.168.128.106, in_daemon: true }
-# - { name: postgres, directory: /var/lib/pgsql/9.5/data, user: postgres, primary_ip: 192.168.128.98, backup_ip: 192.168.128.106, in_daemon: false }
+# - { name: jira, directory: /srv/atlassian/jira/data, user: jira, primary_ip: 192.168.128.98,  failover_ip: 192.168.128.106, in_daemon: true }
+# - { name: postgres, directory: /var/lib/pgsql/9.5/data, user: postgres, primary_ip: 192.168.128.98, failover_ip: 192.168.128.106, in_daemon: false }
 
 clsync_package: "clsync-2eb3a6fgit-1.x86_64.rpm"

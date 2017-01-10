@@ -1,5 +1,5 @@
 ---
-# configure rsyncd on backup
+# configure rsyncd on failover node
   - include: 'rsync.yaml'
     when: clsync_master is defined
 
