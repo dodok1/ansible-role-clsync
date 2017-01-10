@@ -1,5 +1,20 @@
 ---
+- name: check SELinux state
+  always_run: true
+  ignore_errors: true
+  failed_when: false
+  changed_when: false
+  register: clsync_selinux_state
+  command: selinuxenabled
+
+- name: install Python SELinux bindings
+  when: clsync_selinux_state.rc == 0
+  yum:
+    name: libselinux-python
+    state: latest
+
 - name: disable selinux
+  when: clsync_selinux_state.rc == 0
   selinux:
     state: disabled
 
